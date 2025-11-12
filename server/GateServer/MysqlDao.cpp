@@ -60,6 +60,7 @@ bool MysqlDao::CheckEmail(const std::string& name, const std::string& email) {
 	auto con = pool_->getConnection();
 	try {
 		if (con == nullptr) {
+			pool_->returnConnection(std::move(con));
 			return false;
 		}
 
@@ -82,7 +83,6 @@ bool MysqlDao::CheckEmail(const std::string& name, const std::string& email) {
 			pool_->returnConnection(std::move(con));
 			return true;
 		}
-		return true;
 	}
 	catch (sql::SQLException& e) {
 		pool_->returnConnection(std::move(con));
@@ -97,6 +97,7 @@ bool MysqlDao::UpdatePwd(const std::string& name, const std::string& newpwd) {
 	auto con = pool_->getConnection();
 	try {
 		if (con == nullptr) {
+			pool_->returnConnection(std::move(con));
 			return false;
 		}
 

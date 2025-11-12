@@ -4,4 +4,4 @@
 *.o
 *.so
 x64
-
+.qtcreator

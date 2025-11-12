@@ -16,8 +16,13 @@ public:
 
 private:
     Ui::LoginDialog *ui;
+
+public slots:
+    void slot_forget_pwd();
+
 signals:
     void switchRegister();
+    void switchReset();
 
 };
 
