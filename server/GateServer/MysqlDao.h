@@ -1,6 +1,6 @@
 #pragma once
-#include"const.h"
-#include"ConfigMgr.h"
+#include "const.h"
+#include <thread>
 
 class SqlConnection {
 public:
@@ -23,18 +23,12 @@ public:
 				// 将时间戳转换为秒
 				long long timestamp = std::chrono::duration_cast<std::chrono::seconds>(currentTime).count();
 				pool_.push(std::make_unique<SqlConnection>(con, timestamp));
-				std::cout << "mysql connection init success" << std::endl;
 			}
 
 			_check_thread = std::thread([this]() {
-				int count = 0;
 				while (!b_stop_) {
-					if (count >= 60) {
-						count = 0;
-						checkConnectionPro();
-					}
-					std::this_thread::sleep_for(std::chrono::seconds(1));
-					count++;
+					checkConnectionPro();
+					std::this_thread::sleep_for(std::chrono::seconds(60));
 				}
 				});
 
@@ -121,6 +115,7 @@ public:
 				std::lock_guard<std::mutex> guard(mutex_);
 				pool_.push(std::move(newCon));
 			}
+
 			std::cout << "mysql connection reconnect success" << std::endl;
 			return true;
 
@@ -130,7 +125,6 @@ public:
 			return false;
 		}
 	}
-
 
 	void checkConnection() {
 		std::lock_guard<std::mutex> guard(mutex_);
@@ -218,7 +212,12 @@ private:
 	std::atomic<int> _fail_count;
 };
 
-
+struct UserInfo {
+	std::string name;
+	std::string pwd;
+	int uid;
+	std::string email;
+};
 
 class MysqlDao
 {
@@ -226,17 +225,11 @@ public:
 	MysqlDao();
 	~MysqlDao();
 	int RegUser(const std::string& name, const std::string& email, const std::string& pwd);
-
+	int RegUserTransaction(const std::string& name, const std::string& email, const std::string& pwd, const std::string& icon);
 	bool CheckEmail(const std::string& name, const std::string& email);
 	bool UpdatePwd(const std::string& name, const std::string& newpwd);
-	//bool CheckPwd(const std::string& name, const std::string& pwd, UserInfo& userInfo);
-	bool AddFriendApply(const int& from, const int& to);
-	bool AuthFriendApply(const int& from, const int& to);
-	bool AddFriend(const int& from, const int& to, std::string back_name);
-	//std::shared_ptr<UserInfo> GetUser(int uid);
-	//std::shared_ptr<UserInfo> GetUser(std::string name);
-	//bool GetApplyList(int touid, std::vector<std::shared_ptr<ApplyInfo>>& applyList, int offset, int limit);
-	//bool GetFriendList(int self_id, std::vector<std::shared_ptr<UserInfo> >& user_info);
+	bool CheckPwd(const std::string& name, const std::string& pwd, UserInfo& userInfo);
+	bool TestProcedure(const std::string& email, int& uid, std::string& name);
 private:
 	std::unique_ptr<MySqlPool> pool_;
 };
