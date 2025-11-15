@@ -51,6 +51,7 @@ template <> constexpr inline auto HttpMgr::qt_create_metaobjectdata<qt_meta_tag_
         "mod",
         "sig_reg_mod_finish",
         "sig_reset_mod_finish",
+        "sig_login_mod_finish",
         "slot_http_finish"
     };
 
@@ -67,8 +68,12 @@ template <> constexpr inline auto HttpMgr::qt_create_metaobjectdata<qt_meta_tag_
         QtMocHelpers::SignalData<void(ReqId, QString, ErrorCodes)>(11, 2, QMC::AccessPublic, QMetaType::Void, {{
             { 0x80000000 | 3, 4 }, { QMetaType::QString, 5 }, { 0x80000000 | 6, 7 },
         }}),
+        // Signal 'sig_login_mod_finish'
+        QtMocHelpers::SignalData<void(ReqId, QString, ErrorCodes)>(12, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { 0x80000000 | 3, 4 }, { QMetaType::QString, 5 }, { 0x80000000 | 6, 7 },
+        }}),
         // Slot 'slot_http_finish'
-        QtMocHelpers::SlotData<void(ReqId, QString, ErrorCodes, Modules)>(12, 2, QMC::AccessPrivate, QMetaType::Void, {{
+        QtMocHelpers::SlotData<void(ReqId, QString, ErrorCodes, Modules)>(13, 2, QMC::AccessPrivate, QMetaType::Void, {{
             { 0x80000000 | 3, 4 }, { QMetaType::QString, 5 }, { 0x80000000 | 6, 7 }, { 0x80000000 | 8, 9 },
         }}),
     };
@@ -97,7 +102,8 @@ void HttpMgr::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
         case 0: _t->sig_http_finish((*reinterpret_cast< std::add_pointer_t<ReqId>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<ErrorCodes>>(_a[3])),(*reinterpret_cast< std::add_pointer_t<Modules>>(_a[4]))); break;
         case 1: _t->sig_reg_mod_finish((*reinterpret_cast< std::add_pointer_t<ReqId>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<ErrorCodes>>(_a[3]))); break;
         case 2: _t->sig_reset_mod_finish((*reinterpret_cast< std::add_pointer_t<ReqId>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<ErrorCodes>>(_a[3]))); break;
-        case 3: _t->slot_http_finish((*reinterpret_cast< std::add_pointer_t<ReqId>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<ErrorCodes>>(_a[3])),(*reinterpret_cast< std::add_pointer_t<Modules>>(_a[4]))); break;
+        case 3: _t->sig_login_mod_finish((*reinterpret_cast< std::add_pointer_t<ReqId>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<ErrorCodes>>(_a[3]))); break;
+        case 4: _t->slot_http_finish((*reinterpret_cast< std::add_pointer_t<ReqId>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<ErrorCodes>>(_a[3])),(*reinterpret_cast< std::add_pointer_t<Modules>>(_a[4]))); break;
         default: ;
         }
     }
@@ -107,6 +113,8 @@ void HttpMgr::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
         if (QtMocHelpers::indexOfMethod<void (HttpMgr::*)(ReqId , QString , ErrorCodes )>(_a, &HttpMgr::sig_reg_mod_finish, 1))
             return;
         if (QtMocHelpers::indexOfMethod<void (HttpMgr::*)(ReqId , QString , ErrorCodes )>(_a, &HttpMgr::sig_reset_mod_finish, 2))
+            return;
+        if (QtMocHelpers::indexOfMethod<void (HttpMgr::*)(ReqId , QString , ErrorCodes )>(_a, &HttpMgr::sig_login_mod_finish, 3))
             return;
     }
 }
@@ -134,14 +142,14 @@ int HttpMgr::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 4)
+        if (_id < 5)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 4;
+        _id -= 5;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 4)
+        if (_id < 5)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 4;
+        _id -= 5;
     }
     return _id;
 }
@@ -162,5 +170,11 @@ void HttpMgr::sig_reg_mod_finish(ReqId _t1, QString _t2, ErrorCodes _t3)
 void HttpMgr::sig_reset_mod_finish(ReqId _t1, QString _t2, ErrorCodes _t3)
 {
     QMetaObject::activate<void>(this, &staticMetaObject, 2, nullptr, _t1, _t2, _t3);
+}
+
+// SIGNAL 3
+void HttpMgr::sig_login_mod_finish(ReqId _t1, QString _t2, ErrorCodes _t3)
+{
+    QMetaObject::activate<void>(this, &staticMetaObject, 3, nullptr, _t1, _t2, _t3);
 }
 QT_WARNING_POP

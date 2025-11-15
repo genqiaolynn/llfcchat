@@ -42,7 +42,17 @@ template <> constexpr inline auto LoginDialog::qt_create_metaobjectdata<qt_meta_
         "switchRegister",
         "",
         "switchReset",
-        "slot_forget_pwd"
+        "sig_connect_tcp",
+        "ServerInfo",
+        "slot_forget_pwd",
+        "on_login_btn_clicked",
+        "slot_login_mod_finish",
+        "ReqId",
+        "id",
+        "res",
+        "ErrorCodes",
+        "err",
+        "slot_login_failed"
     };
 
     QtMocHelpers::UintData qt_methods {
@@ -50,8 +60,22 @@ template <> constexpr inline auto LoginDialog::qt_create_metaobjectdata<qt_meta_
         QtMocHelpers::SignalData<void()>(1, 2, QMC::AccessPublic, QMetaType::Void),
         // Signal 'switchReset'
         QtMocHelpers::SignalData<void()>(3, 2, QMC::AccessPublic, QMetaType::Void),
+        // Signal 'sig_connect_tcp'
+        QtMocHelpers::SignalData<void(ServerInfo)>(4, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { 0x80000000 | 5, 2 },
+        }}),
         // Slot 'slot_forget_pwd'
-        QtMocHelpers::SlotData<void()>(4, 2, QMC::AccessPublic, QMetaType::Void),
+        QtMocHelpers::SlotData<void()>(6, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'on_login_btn_clicked'
+        QtMocHelpers::SlotData<void()>(7, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'slot_login_mod_finish'
+        QtMocHelpers::SlotData<void(ReqId, QString, ErrorCodes)>(8, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { 0x80000000 | 9, 10 }, { QMetaType::QString, 11 }, { 0x80000000 | 12, 13 },
+        }}),
+        // Slot 'slot_login_failed'
+        QtMocHelpers::SlotData<void(int)>(14, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { QMetaType::Int, 2 },
+        }}),
     };
     QtMocHelpers::UintData qt_properties {
     };
@@ -77,7 +101,11 @@ void LoginDialog::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
         switch (_id) {
         case 0: _t->switchRegister(); break;
         case 1: _t->switchReset(); break;
-        case 2: _t->slot_forget_pwd(); break;
+        case 2: _t->sig_connect_tcp((*reinterpret_cast< std::add_pointer_t<ServerInfo>>(_a[1]))); break;
+        case 3: _t->slot_forget_pwd(); break;
+        case 4: _t->on_login_btn_clicked(); break;
+        case 5: _t->slot_login_mod_finish((*reinterpret_cast< std::add_pointer_t<ReqId>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<ErrorCodes>>(_a[3]))); break;
+        case 6: _t->slot_login_failed((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
         default: ;
         }
     }
@@ -85,6 +113,8 @@ void LoginDialog::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
         if (QtMocHelpers::indexOfMethod<void (LoginDialog::*)()>(_a, &LoginDialog::switchRegister, 0))
             return;
         if (QtMocHelpers::indexOfMethod<void (LoginDialog::*)()>(_a, &LoginDialog::switchReset, 1))
+            return;
+        if (QtMocHelpers::indexOfMethod<void (LoginDialog::*)(ServerInfo )>(_a, &LoginDialog::sig_connect_tcp, 2))
             return;
     }
 }
@@ -108,14 +138,14 @@ int LoginDialog::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 3)
+        if (_id < 7)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 3;
+        _id -= 7;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 3)
+        if (_id < 7)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 3;
+        _id -= 7;
     }
     return _id;
 }
@@ -130,5 +160,11 @@ void LoginDialog::switchRegister()
 void LoginDialog::switchReset()
 {
     QMetaObject::activate(this, &staticMetaObject, 1, nullptr);
+}
+
+// SIGNAL 2
+void LoginDialog::sig_connect_tcp(ServerInfo _t1)
+{
+    QMetaObject::activate<void>(this, &staticMetaObject, 2, nullptr, _t1);
 }
 QT_WARNING_POP

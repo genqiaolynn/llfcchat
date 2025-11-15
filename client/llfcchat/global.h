@@ -64,6 +64,13 @@ enum ClickLbState{
     Selected = 1
 };
 
+struct ServerInfo{
+    QString Host;
+    QString Port;
+    QString Token;
+    int Uid;
+};
+
 const std::vector<QString> heads = {
     ":/res/head_1.jpg",
     ":/res/head_2.jpg",

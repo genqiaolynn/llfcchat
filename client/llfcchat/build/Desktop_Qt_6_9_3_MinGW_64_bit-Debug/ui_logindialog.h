@@ -29,16 +29,19 @@ class Ui_LoginDialog
 public:
     QHBoxLayout *horizontalLayout;
     QVBoxLayout *verticalLayout;
-    QWidget *widget;
+    QLabel *err_tip;
+    QWidget *head_widget;
     QGridLayout *gridLayout;
-    QLabel *label;
+    QLabel *head_label;
     QSpacerItem *verticalSpacer;
     QHBoxLayout *horizontalLayout_2;
-    QLabel *user_label;
-    QLineEdit *user_edit;
+    QLabel *email_lb;
+    QLineEdit *email_edit;
+    QSpacerItem *horizontalSpacer_6;
     QHBoxLayout *horizontalLayout_3;
     QLabel *pass_label;
     QLineEdit *pass_edit;
+    QSpacerItem *horizontalSpacer_7;
     QHBoxLayout *horizontalLayout_4;
     QSpacerItem *horizontalSpacer;
     ClickedLabel *forget_label;
@@ -65,39 +68,49 @@ public:
         verticalLayout = new QVBoxLayout();
         verticalLayout->setObjectName("verticalLayout");
         verticalLayout->setContentsMargins(5, 5, 5, 5);
-        widget = new QWidget(LoginDialog);
-        widget->setObjectName("widget");
-        gridLayout = new QGridLayout(widget);
-        gridLayout->setObjectName("gridLayout");
-        label = new QLabel(widget);
-        label->setObjectName("label");
-        label->setPixmap(QPixmap(QString::fromUtf8(":/res/ice.png")));
-        label->setAlignment(Qt::AlignmentFlag::AlignCenter);
+        err_tip = new QLabel(LoginDialog);
+        err_tip->setObjectName("err_tip");
 
-        gridLayout->addWidget(label, 0, 0, 1, 1);
+        verticalLayout->addWidget(err_tip);
+
+        head_widget = new QWidget(LoginDialog);
+        head_widget->setObjectName("head_widget");
+        gridLayout = new QGridLayout(head_widget);
+        gridLayout->setObjectName("gridLayout");
+        head_label = new QLabel(head_widget);
+        head_label->setObjectName("head_label");
+        head_label->setMinimumSize(QSize(200, 200));
+        head_label->setMaximumSize(QSize(200, 200));
+        head_label->setAlignment(Qt::AlignmentFlag::AlignCenter);
+
+        gridLayout->addWidget(head_label, 2, 0, 1, 1);
 
         verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Expanding);
 
-        gridLayout->addItem(verticalSpacer, 1, 0, 1, 1);
+        gridLayout->addItem(verticalSpacer, 3, 0, 1, 1);
 
 
-        verticalLayout->addWidget(widget);
+        verticalLayout->addWidget(head_widget);
 
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setObjectName("horizontalLayout_2");
-        user_label = new QLabel(LoginDialog);
-        user_label->setObjectName("user_label");
-        user_label->setMinimumSize(QSize(0, 25));
-        user_label->setMaximumSize(QSize(16777215, 25));
+        email_lb = new QLabel(LoginDialog);
+        email_lb->setObjectName("email_lb");
+        email_lb->setMinimumSize(QSize(0, 25));
+        email_lb->setMaximumSize(QSize(16777215, 25));
 
-        horizontalLayout_2->addWidget(user_label);
+        horizontalLayout_2->addWidget(email_lb);
 
-        user_edit = new QLineEdit(LoginDialog);
-        user_edit->setObjectName("user_edit");
-        user_edit->setMinimumSize(QSize(0, 25));
-        user_edit->setMaximumSize(QSize(16777215, 25));
+        email_edit = new QLineEdit(LoginDialog);
+        email_edit->setObjectName("email_edit");
+        email_edit->setMinimumSize(QSize(200, 25));
+        email_edit->setMaximumSize(QSize(200, 25));
 
-        horizontalLayout_2->addWidget(user_edit);
+        horizontalLayout_2->addWidget(email_edit);
+
+        horizontalSpacer_6 = new QSpacerItem(40, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
+
+        horizontalLayout_2->addItem(horizontalSpacer_6);
 
 
         verticalLayout->addLayout(horizontalLayout_2);
@@ -113,10 +126,14 @@ public:
 
         pass_edit = new QLineEdit(LoginDialog);
         pass_edit->setObjectName("pass_edit");
-        pass_edit->setMinimumSize(QSize(0, 25));
-        pass_edit->setMaximumSize(QSize(16777215, 25));
+        pass_edit->setMinimumSize(QSize(200, 25));
+        pass_edit->setMaximumSize(QSize(200, 25));
 
         horizontalLayout_3->addWidget(pass_edit);
+
+        horizontalSpacer_7 = new QSpacerItem(40, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
+
+        horizontalLayout_3->addItem(horizontalSpacer_7);
 
 
         verticalLayout->addLayout(horizontalLayout_3);
@@ -195,9 +212,10 @@ public:
     void retranslateUi(QDialog *LoginDialog)
     {
         LoginDialog->setWindowTitle(QCoreApplication::translate("LoginDialog", "Dialog", nullptr));
-        label->setText(QString());
-        user_label->setText(QCoreApplication::translate("LoginDialog", "<html><head/><body><p>\347\224\250\346\210\267:</p></body></html>", nullptr));
-        pass_label->setText(QCoreApplication::translate("LoginDialog", "\345\257\206\347\240\201:", nullptr));
+        err_tip->setText(QString());
+        head_label->setText(QString());
+        email_lb->setText(QCoreApplication::translate("LoginDialog", "<html><head/><body><p>\351\202\256\347\256\261\357\274\232</p></body></html>", nullptr));
+        pass_label->setText(QCoreApplication::translate("LoginDialog", "\345\257\206\347\240\201\357\274\232", nullptr));
         forget_label->setText(QCoreApplication::translate("LoginDialog", "\345\277\230\350\256\260\345\257\206\347\240\201", nullptr));
         login_btn->setText(QCoreApplication::translate("LoginDialog", "\347\231\273\345\275\225", nullptr));
         reg_btn->setText(QCoreApplication::translate("LoginDialog", "\346\263\250\345\206\214", nullptr));
